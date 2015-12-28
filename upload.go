@@ -26,6 +26,8 @@ func upload(w http.ResponseWriter, r *http.Request) {
 }
 
 func uploadGet(w http.ResponseWriter, r *http.Request) {
+	var uploadTemplate = template.Must(template.ParseFiles("upload.html"))
+
 	uploadTemplate.Execute(w, nil)
 }
 
@@ -113,23 +115,4 @@ func sanitizeFilename(filename string) string {
 
 }
 
-var uploadTemplate = template.Must(template.New("uploadForm").Parse(`
-<!DOCTYPE html>
-<html>
-<head>
-    <title>DropLink</title>
-    <link rel="stylesheet" type="text/css" href="./media/dropzone.css">
-    <script type="text/javascript" src="./media/dropzone.js"></script>
-</head>
-<body>
-  <form action="/upload"
-    method="POST"
-    class="dropzone"
-    id="dropzone"></form>
-      <div class="fallback">
-      <input name="file" type="file" multiple />
-    </div>
-  </form>
-</body>
-</html>
-`))
+// var uploadTemplate = template.Must(template.ParseFiles("upload.html"))
