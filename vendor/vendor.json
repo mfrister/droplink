@@ -1,0 +1,21 @@
+{
+	"comment": "",
+	"ignore": "test",
+	"package": [
+		{
+			"path": "github.com/carbocation/interpose",
+			"revision": "74a990880515d8cd8b854cfa2599ff813d016722",
+			"revisionTime": "2014-10-22T12:36:41-04:00"
+		},
+		{
+			"path": "github.com/kelseyhightower/envconfig",
+			"revision": "1872daf6c2e5e7a88d51a5e60170adc2e50a6345",
+			"revisionTime": "2015-04-04T19:23:19-07:00"
+		},
+		{
+			"path": "github.com/tv42/base58",
+			"revision": "b6649477bfe6276322b4eeaae8f5e947b49cec92",
+			"revisionTime": "2015-01-13T15:56:51-08:00"
+		}
+	]
+}
