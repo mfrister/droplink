@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>DropLink</title>
-    <link rel="stylesheet" type="text/css" href="./media/dropzone.css">
-    <script type="text/javascript" src="./media/dropzone.js"></script>
-
+  <title>DropLink</title>
+  <!-- <link rel="stylesheet" type="text/css" href="./media/dropzone.css"> -->
+  <!-- <script type="text/javascript" src="./media/dropzone.js"></script> -->
 </head>
 <body>
   <form action="/upload"
     method="POST"
     class="dropzone"
-    id="dropzone">
+    id="dropzone"
+    enctype="multipart/form-data">
+    <input type="file" name="file" />
+    <input type="submit" value="Upload" />
   </form>
-  <script>
+<!--   <script>
     Dropzone.options.dropzone = {
       maxFiles: 1,
       init: function() {
@@ -21,6 +23,6 @@
         })
       }
     }
-  </script>
+  </script> -->
 </body>
 </html>

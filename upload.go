@@ -10,6 +10,7 @@ import (
 	"os"
 	"path"
 	"regexp"
+	"strings"
 	"text/template"
 
 	"github.com/tv42/base58"
@@ -50,7 +51,8 @@ func uploadPost(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	fmt.Fprintf(w, "%s/%s", key, filename)
+	subdir := strings.TrimSuffix(r.URL.Path, "/upload")
+	fmt.Fprintf(w, "%s%s/%s/%s", subdir, r.Host, key, filename)
 }
 
 func processUpload(r io.ReadCloser, origName string) (string, string, error) {
