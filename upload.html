@@ -4,8 +4,24 @@
   <title>DropLink</title>
   <!-- <link rel="stylesheet" type="text/css" href="./media/dropzone.css"> -->
   <!-- <script type="text/javascript" src="./media/dropzone.js"></script> -->
+  <style type="text/css">
+    div.uploaded-message {
+      padding: 20px;
+    }
+    div.linktocopy {
+      border: 1px solid #AAA;
+      margin: 10px;
+    }
+  </style>
 </head>
 <body>
+  {{if .DownloadURL}}
+    <div class="uploaded-message">
+      <p><strong>Uploaded:</strong></p>
+      <div class="linktocopy">{{.DownloadURL}}</div>
+    </div>
+  {{end}}
+  <h1>Upload a file</h1>
   <form action="/upload"
     method="POST"
     class="dropzone"

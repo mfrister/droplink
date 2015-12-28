@@ -8,6 +8,7 @@ import (
 )
 
 const DATA_DIR = "./data"
+const URL_PREFIX = "http://localhost:8000/"
 
 func main() {
 	middle := interpose.New()

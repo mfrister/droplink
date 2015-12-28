@@ -3,6 +3,7 @@ package main
 import (
 	"crypto/rand"
 	"fmt"
+	"html/template"
 	"io"
 	"log"
 	"math/big"
@@ -10,8 +11,6 @@ import (
 	"os"
 	"path"
 	"regexp"
-	"strings"
-	"text/template"
 
 	"github.com/tv42/base58"
 )
@@ -27,9 +26,12 @@ func upload(w http.ResponseWriter, r *http.Request) {
 }
 
 func uploadGet(w http.ResponseWriter, r *http.Request) {
-	var uploadTemplate = template.Must(template.ParseFiles("upload.html"))
+	renderUpload(w, nil)
+}
 
-	uploadTemplate.Execute(w, nil)
+func renderUpload(w http.ResponseWriter, context interface{}) {
+	var uploadTemplate = template.Must(template.ParseFiles("upload.html"))
+	uploadTemplate.Execute(w, context)
 }
 
 func uploadPost(w http.ResponseWriter, r *http.Request) {
@@ -51,8 +53,14 @@ func uploadPost(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	subdir := strings.TrimSuffix(r.URL.Path, "/upload")
-	fmt.Fprintf(w, "%s%s/%s/%s", subdir, r.Host, key, filename)
+	downloadUrl := fmt.Sprintf("%s%s/%s", URL_PREFIX, key, filename)
+
+	context := struct {
+		DownloadURL string
+	}{
+		downloadUrl,
+	}
+	renderUpload(w, context)
 }
 
 func processUpload(r io.ReadCloser, origName string) (string, string, error) {
