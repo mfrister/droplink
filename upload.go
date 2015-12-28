@@ -94,7 +94,7 @@ func copyToFile(filePath string, r io.ReadCloser) error {
 	if n, err := io.Copy(file, r); err != nil {
 		return err
 	} else {
-		log.Printf("Copied %d bytes", n)
+		log.Printf("Copied %d bytes to '%s'", n, filePath)
 	}
 	if err := r.Close(); err != nil {
 		return err
