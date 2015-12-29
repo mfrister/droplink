@@ -14,6 +14,7 @@ const URL_PREFIX = "http://localhost:8000/"
 type Config struct {
 	Address      string `envconfig:"ADDRESS"`
 	DataDir      string `envconfig:"DATA_DIR"`
+	PathPrefix   string `envconfig:"PATH_PREFIX"`
 	URLPrefix    string `envconfig:"URL_PREFIX"`
 	UploadSecret string `envconfig:"UPLOAD_SECRET"`
 }
@@ -53,7 +54,8 @@ func main() {
 	router.Handle("/", http.HandlerFunc(download))
 
 	log.Printf("Listening on %s", config.Address)
-	err := http.ListenAndServe(config.Address, middle)
+	err := http.ListenAndServe(config.Address,
+		http.StripPrefix(config.PathPrefix, middle))
 	if err != nil {
 		log.Fatal(err)
 	}
