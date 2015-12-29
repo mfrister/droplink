@@ -12,9 +12,10 @@ const DATA_DIR = "./data"
 const URL_PREFIX = "http://localhost:8000/"
 
 type Config struct {
-	Address   string `envconfig:"ADDRESS"`
-	DataDir   string `envconfig:"DATA_DIR"`
-	URLPrefix string `envconfig:"URL_PREFIX"`
+	Address      string `envconfig:"ADDRESS"`
+	DataDir      string `envconfig:"DATA_DIR"`
+	URLPrefix    string `envconfig:"URL_PREFIX"`
+	UploadSecret string `envconfig:"UPLOAD_SECRET"`
 }
 
 var config *Config
@@ -34,6 +35,10 @@ func loadConfig() *Config {
 	if conf.URLPrefix == "" {
 		conf.URLPrefix = "http://localhost:8000/"
 	}
+	if conf.UploadSecret == "" {
+		log.Printf("WARNING: No upload secret set, using default")
+		conf.UploadSecret = "insecure"
+	}
 	return &conf
 }
 
@@ -44,7 +49,7 @@ func main() {
 	router := http.NewServeMux()
 	middle.UseHandler(router)
 
-	router.Handle("/upload", http.HandlerFunc(upload))
+	router.Handle("/upload/", http.HandlerFunc(upload))
 	router.Handle("/", http.HandlerFunc(download))
 
 	log.Printf("Listening on %s", config.Address)

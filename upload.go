@@ -1,6 +1,7 @@
 package main
 
 import (
+	"crypto/hmac"
 	"crypto/rand"
 	"fmt"
 	"html/template"
@@ -11,11 +12,17 @@ import (
 	"os"
 	"path"
 	"regexp"
+	"strings"
 
 	"github.com/tv42/base58"
 )
 
 func upload(w http.ResponseWriter, r *http.Request) {
+	if !pathHasCorrectSecret(r.URL.Path) {
+		http.NotFound(w, r)
+		return
+	}
+
 	if r.Method == "GET" {
 		uploadGet(w, r)
 	} else if r.Method == "POST" {
@@ -123,6 +130,16 @@ func sanitizeFilename(filename string) string {
 	return FILENAME_REPLACE_REGEXP.ReplaceAllString(
 		filename, FILENAME_REPLACE_WITH)
 
+}
+
+func pathHasCorrectSecret(path string) bool {
+	// TODO check maximum path length
+	components := strings.Split(path, "/")
+	if len(components) == 0 {
+		return false
+	}
+	last := components[len(components)-1]
+	return hmac.Equal([]byte(last), []byte(config.UploadSecret))
 }
 
 // var uploadTemplate = template.Must(template.ParseFiles("upload.html"))
