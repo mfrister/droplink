@@ -8,9 +8,6 @@ import (
 	"github.com/kelseyhightower/envconfig"
 )
 
-const DATA_DIR = "./data"
-const URL_PREFIX = "http://localhost:8000/"
-
 type Config struct {
 	Address      string `envconfig:"ADDRESS"`
 	DataDir      string `envconfig:"DATA_DIR"`

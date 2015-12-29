@@ -21,7 +21,7 @@ func download(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	filePath := path.Join(DATA_DIR, r.URL.Path)
+	filePath := path.Join(config.DataDir, r.URL.Path)
 	log.Printf("Serving %s", filePath)
 	http.ServeFile(w, r, filePath)
 }

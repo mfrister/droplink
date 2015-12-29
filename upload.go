@@ -60,7 +60,7 @@ func uploadPost(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	downloadUrl := fmt.Sprintf("%s%s/%s", URL_PREFIX, key, filename)
+	downloadUrl := fmt.Sprintf("%s%s/%s", config.URLPrefix, key, filename)
 
 	context := struct {
 		DownloadURL string
@@ -89,7 +89,7 @@ func processUpload(r io.ReadCloser, origName string) (string, string, error) {
 }
 
 func createRandomDir(key string) (string, error) {
-	dir := path.Join(DATA_DIR, key)
+	dir := path.Join(config.DataDir, key)
 	return dir, os.MkdirAll(dir, 0755)
 }
 
