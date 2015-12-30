@@ -60,12 +60,12 @@ func uploadPost(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	downloadUrl := fmt.Sprintf("%s%s/%s", config.URLPrefix, key, filename)
-
 	context := struct {
 		DownloadURL string
+		ShortURL    string
 	}{
-		downloadUrl,
+		fmt.Sprintf("%s%s/%s", config.URLPrefix, key, filename),
+		fmt.Sprintf("%s%s", config.URLPrefix, key),
 	}
 	renderUpload(w, context)
 }
