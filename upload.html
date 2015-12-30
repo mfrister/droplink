@@ -7,9 +7,11 @@
     div.uploaded-message {
       padding: 20px;
     }
-    div.linktocopy {
+    .linktocopy {
       border: 1px solid #AAA;
       margin: 10px;
+      font-family: monospace;
+      overflow: scroll;
     }
   </style>
 </head>
@@ -37,6 +39,18 @@
       document.getElementById('uploadForm').submit()
     }
     document.querySelector('input[type=submit]').style.display = 'none';
+    (function() {
+      var urls = document.querySelectorAll('.linktocopy')
+      for(var i = 0; i < urls.length; ++i) {
+        var url = urls.item(i);
+
+        url.onclick = function() {
+          var range = document.createRange();
+          range.selectNode(url);
+          window.getSelection().addRange(range);
+        }
+      }
+    })()
   </script>
 </body>
 </html>
