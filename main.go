@@ -4,6 +4,8 @@ import (
 	"log"
 	"net/http"
 
+	"frister.net/go/droplink/servefs"
+
 	"github.com/carbocation/interpose"
 	"github.com/kelseyhightower/envconfig"
 )
@@ -48,6 +50,9 @@ func main() {
 	middle.UseHandler(router)
 
 	router.Handle("/upload/", http.HandlerFunc(upload))
+	router.Handle("/media/",
+		http.StripPrefix("/media/",
+			http.FileServer(servefs.JustFiles{http.Dir("media")})))
 	router.Handle("/", http.HandlerFunc(download))
 
 	log.Printf("Listening on %s", config.Address)
