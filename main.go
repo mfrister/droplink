@@ -11,11 +11,13 @@ import (
 )
 
 type Config struct {
-	Address      string `envconfig:"ADDRESS"`
-	DataDir      string `envconfig:"DATA_DIR"`
-	PathPrefix   string `envconfig:"PATH_PREFIX"`
-	URLPrefix    string `envconfig:"URL_PREFIX"`
-	UploadSecret string `envconfig:"UPLOAD_SECRET"`
+	Address             string `envconfig:"ADDRESS"`
+	DataDir             string `envconfig:"DATA_DIR"`
+	PathPrefix          string `envconfig:"PATH_PREFIX"`
+	URLPrefix           string `envconfig:"URL_PREFIX"`
+	UploadSecret        string `envconfig:"UPLOAD_SECRET"`
+	CleanupEveryMinutes int    `envconfig:"CLEANUP_EVERY_MINUTES"`
+	CleanupAfterHours   int    `envconfig:"CLEANUP_AFTER_HOURS"`
 }
 
 var config *Config
@@ -44,8 +46,9 @@ func loadConfig() *Config {
 
 func main() {
 	config = loadConfig()
-	middle := interpose.New()
+	cleanup()
 
+	middle := interpose.New()
 	router := http.NewServeMux()
 	middle.UseHandler(router)
 
