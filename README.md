@@ -1,10 +1,12 @@
 # DropLink
 
-A simple file sharing site, similar to file hosters.
+A simple private file sharing site, similar to file hosters.
 
-Upload a single file on an upload page (authenticate via a private URL) and get a download-URL that's hard to guess. Data is stored on the filesystem.
+Upload a single file on an upload page (authenticate via a private URL) and get a download URL that's hard to guess. Data is stored on the filesystem.
 
 If you want, uploaded files are cleaned up after a specified amount of time.
+
+![Screenshot after upload](doc/screenshot.png)
 
 DropLink generates URLs like this:
 
