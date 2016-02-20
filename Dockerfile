@@ -1,6 +1,4 @@
-FROM golang:1.5
-
-ENV GO15VENDOREXPERIMENT 1
+FROM golang:1.6.0-alpine
 
 WORKDIR /go/src/frister.net/go/droplink
 ADD . /go/src/frister.net/go/droplink
